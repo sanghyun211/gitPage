@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function() {
     form.addEventListener('submit', function(event) {
         event.preventDefault();
 
-        const mbti = answers.q1 + answers.q2 + answers.q3 + answers.q4;
+        const mbti = answers.q1 + answers.q2 + answers.q4 + answers.q3;
 
         form.style.opacity = 0;
         setTimeout(() => {

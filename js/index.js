@@ -1,53 +1,42 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const startScreen = document.getElementById('start-screen');
-    const startButton = document.getElementById('start-button');
-    const form = document.getElementById('mbti-form');
-    const resultDiv = document.getElementById('result');
-    const questions = document.querySelectorAll('.question');
-    let currentQuestion = 0;
-    let answers = {};
+    const img = document.getElementById('floorPlan');
+    const canvas = document.getElementById('circleCanvas');
+    const ctx = canvas.getContext('2d');
 
-    startButton.addEventListener('click', () => {
-        startScreen.style.opacity = 0;
-        setTimeout(() => {
-            startScreen.style.display = 'none';
-            form.style.display = 'block';
-            form.style.opacity = 1;
-        }, 500);
-    });
+    let scale = 1;
+    const circle = { x: 200, y: 150, radius: 20 }; // 원의 초기 위치와 반지름
 
-    questions.forEach((question, index) => {
-        const buttons = question.querySelectorAll('.option');
-        buttons.forEach(button => {
-            button.addEventListener('click', () => {
-                const value = button.getAttribute('data-value');
-                answers[`q${index + 1}`] = value;
+    function resizeCanvas() {
+        canvas.width = img.clientWidth;
+        canvas.height = img.clientHeight;
+        drawCircle();
+    }
 
-                if (index < questions.length - 1) {
-                    questions[index].style.opacity = 0;
-                    setTimeout(() => {
-                        questions[index].style.display = 'none';
-                        questions[index + 1].style.display = 'block';
-                        questions[index + 1].style.opacity = 1;
-                    }, 500);
-                } else {
-                    form.querySelector('button[type="submit"]').style.display = 'block';
-                }
-            });
-        });
-    });
+    function drawCircle() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.beginPath();
+        ctx.arc(circle.x / scale, circle.y / scale, circle.radius * scale, 0, 2 * Math.PI);
+        ctx.fillStyle = 'rgba(255, 0, 0, 0.5)';
+        ctx.fill();
+        ctx.stroke();
+    }
 
-    form.addEventListener('submit', function(event) {
+    function zoom(event) {
         event.preventDefault();
+        const delta = event.deltaY ? -event.deltaY : event.wheelDelta;
+        const zoomFactor = 0.1;
+        if (delta > 0) {
+            scale += zoomFactor;
+        } else {
+            scale = Math.max(0.1, scale - zoomFactor);
+        }
+        img.style.transform = `scale(${scale})`;
+        resizeCanvas();
+    }
 
-        const mbti = answers.q1 + answers.q2 + answers.q4 + answers.q3;
+    img.addEventListener('load', resizeCanvas);
+    window.addEventListener('resize', resizeCanvas);
+    img.addEventListener('wheel', zoom);
 
-        form.style.opacity = 0;
-        setTimeout(() => {
-            form.style.display = 'none';
-            resultDiv.textContent = `당신의 MBTI 유형은 ${mbti}입니다.`;
-            resultDiv.style.display = 'block';
-            resultDiv.style.opacity = 1;
-        }, 500);
-    });
+    resizeCanvas();
 });

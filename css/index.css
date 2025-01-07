@@ -13,8 +13,6 @@ body {
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
-    opacity: 0; /* 초기 투명도 설정 */
-    transition: opacity 2s; /* 애니메이션 효과 */
 }
 
 header h1 {
@@ -53,4 +51,45 @@ footer p {
     font-size: 1em;
     color: #555;
     margin-top: 20px;
+}
+
+.guestbook {
+    margin-top: 20px;
+}
+
+#guestbook-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#guestbook-form input,
+#guestbook-form textarea {
+    width: 80%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#guestbook-form button {
+    padding: 10px 20px;
+    background-color: #d9534f;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#guestbook-entries {
+    list-style-type: none;
+    padding: 0;
+}
+
+#guestbook-entries li {
+    background-color: #f9f9f9;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }

@@ -1,0 +1,56 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.invitation {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    opacity: 0; /* 초기 투명도 설정 */
+    transition: opacity 2s; /* 애니메이션 효과 */
+}
+
+header h1 {
+    color: #d9534f;
+    margin-bottom: 10px;
+}
+
+header p {
+    font-size: 1.2em;
+    color: #555;
+}
+
+.couple h2 {
+    font-size: 2em;
+    margin: 10px 0;
+    color: #333;
+}
+
+.couple p {
+    font-size: 1.2em;
+    color: #777;
+}
+
+.venue h3 {
+    font-size: 1.5em;
+    margin-top: 20px;
+    color: #333;
+}
+
+.venue p {
+    font-size: 1.2em;
+    color: #777;
+}
+
+footer p {
+    font-size: 1em;
+    color: #555;
+    margin-top: 20px;
+}

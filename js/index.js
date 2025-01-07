@@ -1,51 +1,53 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const invitation = document.querySelector('.invitation');
-    invitation.style.opacity = 0;
-    invitation.style.transition = 'opacity 2s';
+    const startScreen = document.getElementById('start-screen');
+    const startButton = document.getElementById('start-button');
+    const form = document.getElementById('mbti-form');
+    const resultDiv = document.getElementById('result');
+    const questions = document.querySelectorAll('.question');
+    let currentQuestion = 0;
+    let answers = {};
 
-    setTimeout(() => {
-        invitation.style.opacity = 1;
-    }, 100);
+    startButton.addEventListener('click', () => {
+        startScreen.style.opacity = 0;
+        setTimeout(() => {
+            startScreen.style.display = 'none';
+            form.style.display = 'block';
+            form.style.opacity = 1;
+        }, 500);
+    });
 
-    const form = document.getElementById('guestbook-form');
-    const guestbookEntries = document.getElementById('guestbook-entries');
+    questions.forEach((question, index) => {
+        const buttons = question.querySelectorAll('.option');
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                const value = button.getAttribute('data-value');
+                answers[`q${index + 1}`] = value;
+
+                if (index < questions.length - 1) {
+                    questions[index].style.opacity = 0;
+                    setTimeout(() => {
+                        questions[index].style.display = 'none';
+                        questions[index + 1].style.display = 'block';
+                        questions[index + 1].style.opacity = 1;
+                    }, 500);
+                } else {
+                    form.querySelector('button[type="submit"]').style.display = 'block';
+                }
+            });
+        });
+    });
 
     form.addEventListener('submit', function(event) {
         event.preventDefault();
 
-        const name = document.getElementById('guest-name').value;
-        const message = document.getElementById('guest-message').value;
+        const mbti = answers.q1 + answers.q2 + answers.q3 + answers.q4;
 
-        if (name && message) {
-            const entry = {
-                name: name,
-                message: message,
-                date: new Date().toLocaleString()
-            };
-
-            addEntryToGuestbook(entry);
-            saveEntryToLocalStorage(entry);
-
-            form.reset();
-        }
+        form.style.opacity = 0;
+        setTimeout(() => {
+            form.style.display = 'none';
+            resultDiv.textContent = `당신의 MBTI 유형은 ${mbti}입니다.`;
+            resultDiv.style.display = 'block';
+            resultDiv.style.opacity = 1;
+        }, 500);
     });
-
-    function addEntryToGuestbook(entry) {
-        const li = document.createElement('li');
-        li.innerHTML = `<strong>${entry.name}</strong> <em>${entry.date}</em><p>${entry.message}</p>`;
-        guestbookEntries.appendChild(li);
-    }
-
-    function saveEntryToLocalStorage(entry) {
-        let entries = JSON.parse(localStorage.getItem('guestbookEntries')) || [];
-        entries.push(entry);
-        localStorage.setItem('guestbookEntries', JSON.stringify(entries));
-    }
-
-    function loadEntriesFromLocalStorage() {
-        let entries = JSON.parse(localStorage.getItem('guestbookEntries')) || [];
-        entries.forEach(entry => addEntryToGuestbook(entry));
-    }
-
-    loadEntriesFromLocalStorage();
 });

@@ -1,41 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wedding Invitation</title>
+    <title>MBTI 검사</title>
     <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
-    <div class="invitation">
-        <header>
-            <h1>You're Invited!</h1>
-            <p>Join us for the wedding of</p>
+    <div class="container">
+        <header id="start-screen">
+            <h1>MBTI 검사</h1>
+            <p>다음 질문에 답하여 당신의 MBTI 유형을 알아보세요.</p>
+            <button id="start-button">시작</button>
         </header>
-        <section class="couple">
-            <h2>John Doe & Jane Smith</h2>
-            <p>Saturday, June 25, 2023</p>
-            <p>At 4:00 PM</p>
-        </section>
-        <section class="venue">
-            <h3>Venue</h3>
-            <p>Beautiful Gardens</p>
-            <p>1234 Wedding Lane</p>
-            <p>City, State, ZIP</p>
-        </section>
-        <section class="guestbook">
-            <h3>Guestbook</h3>
-            <form id="guestbook-form">
-                <input type="text" id="guest-name" placeholder="Your Name" required>
-                <textarea id="guest-message" placeholder="Your Message" required></textarea>
-                <button type="submit">Submit</button>
-            </form>
-            <ul id="guestbook-entries"></ul>
-        </section>
-        <footer>
-            <p>RSVP by June 1, 2023</p>
-            <p>Contact: (123) 456-7890</p>
-        </footer>
+        <form id="mbti-form" style="display: none;">
+            <div class="question" id="question1">
+                <p>1. 당신은 사람과의 만남을 즐깁니까?</p>
+                <button type="button" class="option" data-value="E">네</button>
+                <button type="button" class="option" data-value="I">아니요</button>
+            </div>
+            <div class="question" id="question2" style="display: none;">
+                <p>2. 당신은 상상하는 것을 즐깁니까?</p>
+                <button type="button" class="option" data-value="N">네</button>
+                <button type="button" class="option" data-value="S">아니요</button>
+            </div>
+            <div class="question" id="question3" style="display: none;">
+                <p>3. 당신의 계획 짜는 것을 즐깁니까?</p>
+                <button type="button" class="option" data-value="P">네</button>
+                <button type="button" class="option" data-value="J">아니요</button>
+            </div>
+            <div class="question" id="question4" style="display: none;">
+                <p>4. 당신은 공감 능력이 뛰어납니까?</p>
+                <button type="button" class="option" data-value="F">네</button>
+                <button type="button" class="option" data-value="T">아니요</button>
+            </div>
+            <button type="submit" style="display: none;">제출</button>
+        </form>
+        <div id="result" style="display: none;"></div>
     </div>
     <script src="js/index.js"></script>
 </body>

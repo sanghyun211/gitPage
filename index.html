@@ -1,43 +1,22 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MBTI 검사</title>
+    <title>건물 도면 확대/축소 및 동그라미 그리기</title>
     <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
+
     <div class="container">
-        <header id="start-screen">
-            <h1>MBTI 검사</h1>
-            <p>다음 질문에 답하여 당신의 MBTI 유형을 알아보세요.</p>
-            <button id="start-button">시작</button>
-        </header>
-        <form id="mbti-form" style="display: none;">
-            <div class="question" id="question1">
-                <p>1. 당신은 사람과의 만남을 즐깁니까?</p>
-                <button type="button" class="option" data-value="E">네</button>
-                <button type="button" class="option" data-value="I">아니요</button>
-            </div>
-            <div class="question" id="question2" style="display: none;">
-                <p>2. 당신은 상상하는 것을 즐깁니까?</p>
-                <button type="button" class="option" data-value="N">네</button>
-                <button type="button" class="option" data-value="S">아니요</button>
-            </div>
-            <div class="question" id="question3" style="display: none;">
-                <p>3. 당신의 계획 짜는 것을 즐깁니까?</p>
-                <button type="button" class="option" data-value="J">네</button>
-                <button type="button" class="option" data-value="P">아니요</button>
-            </div>
-            <div class="question" id="question4" style="display: none;">
-                <p>4. 당신은 공감 능력이 뛰어납니까?</p>
-                <button type="button" class="option" data-value="F">네</button>
-                <button type="button" class="option" data-value="T">아니요</button>
-            </div>
-            <button type="submit" style="display: none;">제출</button>
-        </form>
-        <div id="result" style="display: none;"></div>
+        <!-- 공개 이미지로 예시 도면 사용 -->
+        <div class="image-container">
+            <img id="floorPlan" src="https://archisketch-resources.s3.ap-northeast-2.amazonaws.com/service/V2/cb16cc49-b8c2-40d5-9118-6aae2041e66e.png" alt="건물 도면" class="floor-plan">
+            <canvas id="circleCanvas"></canvas>
+        </div>
     </div>
+
     <script src="js/index.js"></script>
+
 </body>
 </html>

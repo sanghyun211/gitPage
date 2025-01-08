@@ -65,25 +65,81 @@ document.addEventListener("DOMContentLoaded", function () {
     function imageChange() {
         const containerRect = img.parentElement.getBoundingClientRect(); // 부모 컨테이너의 위치와 크기를 가져옴
         const imgRect = img.getBoundingClientRect(); // 이미지의 위치와 크기를 가져옴
-
-        let pValue = containerRect.width / 2;
-
-        if (imgRect.left >= containerRect.left) {
-            if (imgX > (pValue * scale - pValue)){
-                imgX = pValue * scale - pValue;
+    
+        let valueX = imgRect.width / 2 / scale;
+        let pValueX = containerRect.width / 2;
+        let midleValueX = (containerRect.width - imgRect.width / scale) / 2;
+    
+        let valueY = imgRect.height / 2 / scale;
+        let pValueY = containerRect.height / 2;
+        let midleValueY = (containerRect.height - imgRect.height / scale) / 2;
+    
+        // x축: 이미지가 더 작을 경우
+        if (imgRect.width >= containerRect.width) {
+            // 왼쪽
+            if (imgRect.left >= containerRect.left) {
+                if (imgX > (valueX * scale - valueX)) {
+                    imgX = valueX * scale - valueX;
+                }
+            }
+            // 오른쪽
+            if (imgRect.right <= containerRect.right) {
+                if (imgX < (-valueX * scale + pValueX + midleValueX)) {
+                    imgX = -valueX * scale + pValueX + midleValueX;
+                }
             }
         }
-
-        if (imgRect.right <= containerRect.right) {
-            if (imgX < (-pValue * scale + pValue)){
-                imgX = -pValue * scale + pValue;
+        // x축: 이미지가 더 클 경우
+        else {
+            // 왼쪽
+            if (imgRect.left <= containerRect.left) {
+                if (imgX < (valueX * scale - valueX)) {
+                    imgX = valueX * scale - valueX;
+                }
+            }
+            // 오른쪽    
+            if (imgRect.right >= containerRect.right) {
+                if (imgX > (-valueX * scale + pValueX + midleValueX)) {
+                    imgX = -valueX * scale + pValueX + midleValueX;
+                }
             }
         }
-
+    
+        // y축: 이미지가 더 작을 경우
+        if (imgRect.height >= containerRect.height) {
+            // 위쪽
+            if (imgRect.top >= containerRect.top) {
+                if (imgY > (valueY * scale - valueY)) {
+                    imgY = valueY * scale - valueY;
+                }
+            }
+            // 아래쪽
+            if (imgRect.bottom <= containerRect.bottom) {
+                if (imgY < (-valueY * scale + pValueY + midleValueY)) {
+                    imgY = -valueY * scale + pValueY + midleValueY;
+                }
+            }
+        }
+        // y축: 이미지가 더 클 경우
+        else {
+            // 위쪽
+            if (imgRect.top <= containerRect.top) {
+                if (imgY < (valueY * scale - valueY)) {
+                    imgY = valueY * scale - valueY;
+                }
+            }
+            // 아래쪽    
+            if (imgRect.bottom >= containerRect.bottom) {
+                if (imgY > (-valueY * scale + pValueY + midleValueY)) {
+                    imgY = -valueY * scale + pValueY + midleValueY;
+                }
+            }
+        }
+    
         // 이미지와 캔버스의 변환 스타일을 업데이트하여 새로운 위치로 이동
         img.style.transform = `translate(${imgX}px, ${imgY}px) scale(${scale})`;
         canvas.style.transform = `translate(${imgX}px, ${imgY}px) scale(${scale})`;
-    }
+    }    
 
     // 드래그 종료 함수
     function endDrag() {
@@ -105,8 +161,13 @@ document.addEventListener("DOMContentLoaded", function () {
             img.style.height = 'auto';
         }
 
-        imgX = 0;
-        imgY = 0;
+        const imgRect = img.getBoundingClientRect();
+        const containerRect = container.getBoundingClientRect();
+
+        // 이미지가 컨테이너의 중앙에 위치하도록 설정
+        imgX = (containerRect.width - imgRect.width) / 2;
+        imgY = (containerRect.height - imgRect.height) / 2;
+
         img.style.transform = `translate(${imgX}px, ${imgY}px) scale(${scale})`;
         canvas.style.transform = `translate(${imgX}px, ${imgY}px) scale(${scale})`;
     }

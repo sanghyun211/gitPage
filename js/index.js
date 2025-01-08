@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const img = document.getElementById('floorPlan');
     const canvas = document.getElementById('circleCanvas');
     const ctx = canvas.getContext('2d');
-
+    
     let scale = 1;
     const circle = { x: 0.5, y: 0.5, radius: 20 }; // 원의 초기 위치 (비율로 설정)
     let isDragging = false;

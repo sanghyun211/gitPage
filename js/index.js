@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", function () {
     let isDragging = false;
     let startX, startY;
     let imgX = 0, imgY = 0;
-    let initialDistance = 0;
 
     // 캔버스 크기 조정 및 원 그리기
     function resizeCanvas() {
@@ -44,47 +43,6 @@ document.addEventListener("DOMContentLoaded", function () {
         imageChange();
     }
 
-    // 터치 시작 함수
-    function startTouch(event) {
-        if (event.touches.length === 1) {
-            isDragging = true;
-            startX = event.touches[0].clientX - imgX;
-            startY = event.touches[0].clientY - imgY;
-            img.style.cursor = 'grabbing';
-        } else if (event.touches.length === 2) {
-            initialDistance = getDistance(event.touches[0], event.touches[1]);
-        }
-    }
-
-    // 터치 이동 함수
-    function moveTouch(event) {
-        if (isDragging && event.touches.length === 1) {
-            imgX = event.touches[0].clientX - startX;
-            imgY = event.touches[0].clientY - startY;
-            imageChange();
-        } else if (event.touches.length === 2) {
-            const currentDistance = getDistance(event.touches[0], event.touches[1]);
-            const zoomFactor = (currentDistance - initialDistance) / 200;
-            scale = Math.max(0.1, scale + zoomFactor);
-            scale = Math.round(scale * 10) / 10;
-            initialDistance = currentDistance;
-            imageChange();
-        }
-    }
-
-    // 터치 종료 함수
-    function endTouch(event) {
-        isDragging = false;
-        img.style.cursor = 'grab';
-    }
-
-    // 두 점 사이의 거리 계산 함수
-    function getDistance(touch1, touch2) {
-        const dx = touch2.clientX - touch1.clientX;
-        const dy = touch2.clientY - touch1.clientY;
-        return Math.sqrt(dx * dx + dy * dy);
-    }
-
     // 드래그 시작 함수
     function startDrag(event) {
         if (event.button !== 0) return; // 좌클릭이 아닌 경우 무시
@@ -103,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // 이미지 조정 함수
+    // 이미지 조정
     function imageChange() {
         const containerRect = img.parentElement.getBoundingClientRect(); // 부모 컨테이너의 위치와 크기를 가져옴
         const imgRect = img.getBoundingClientRect(); // 이미지의 위치와 크기를 가져옴
@@ -251,11 +209,6 @@ document.addEventListener("DOMContentLoaded", function () {
     window.addEventListener('mousemove', drag);
     window.addEventListener('mouseup', endDrag);
     img.addEventListener('dragstart', (event) => event.preventDefault()); // 이미지 드래그 복사 방지
-
-    // 터치 이벤트 리스너 추가
-    img.addEventListener('touchstart', startTouch);
-    img.addEventListener('touchmove', moveTouch);
-    img.addEventListener('touchend', endTouch);
 
     // 초기 캔버스 크기 조정
     resizeCanvas();

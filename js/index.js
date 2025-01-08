@@ -66,21 +66,18 @@ document.addEventListener("DOMContentLoaded", function () {
         const containerRect = img.parentElement.getBoundingClientRect(); // 부모 컨테이너의 위치와 크기를 가져옴
         const imgRect = img.getBoundingClientRect(); // 이미지의 위치와 크기를 가져옴
 
-        if (imgRect.left == containerRect.left) {
-            console.log(`딱 붙음 scale ${scale} imgX${imgX}}`);
-        } 
+        let value = imgRect.width / 2;
 
-        if (imgRect.left > containerRect.left) {
-            console.log(`imgRect.left = ${imgRect.left} containerRect.left = ${containerRect.left}`);
-            if (imgX > (410 * scale - 410)){
-                imgX = 410 * scale - 410;
+        if (imgRect.left >= containerRect.left) {
+            if (imgX > (value * scale - value)){
+                imgX = value * scale - value;
             }
         }
 
-        if (imgRect.left > containerRect.left) {
-            // console.log(containerRect.left, imgRect.left);
-            // console.log(`!!!!!!!!!!왼쪽 넘어감 imgX = ${imgX} scale = ${scale}`);
-            // console.log(`containerRect.left = ${containerRect.left} imgRect.left = ${imgRect.left}`);
+        if (imgRect.right <= containerRect.right) {
+            if (imgX < (-value * scale + value)){
+                imgX = -value * scale + value;
+            }
         }
 
         // 이미지와 캔버스의 변환 스타일을 업데이트하여 새로운 위치로 이동

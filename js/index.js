@@ -66,17 +66,17 @@ document.addEventListener("DOMContentLoaded", function () {
         const containerRect = img.parentElement.getBoundingClientRect(); // 부모 컨테이너의 위치와 크기를 가져옴
         const imgRect = img.getBoundingClientRect(); // 이미지의 위치와 크기를 가져옴
 
-        let value = img.width / 2;
+        let pValue = containerRect.width / 2;
 
         if (imgRect.left >= containerRect.left) {
-            if (imgX > (value * scale - value)){
-                imgX = value * scale - value;
+            if (imgX > (pValue * scale - pValue)){
+                imgX = pValue * scale - pValue;
             }
         }
 
         if (imgRect.right <= containerRect.right) {
-            if (imgX < (-value * scale + value)){
-                imgX = -value * scale + value;
+            if (imgX < (-pValue * scale + pValue)){
+                imgX = -pValue * scale + pValue;
             }
         }
 
